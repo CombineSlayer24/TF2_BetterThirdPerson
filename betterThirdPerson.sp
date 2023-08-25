@@ -26,19 +26,21 @@ public void OnPluginStart()
 
 public void OnPlayerSpawned(Handle event, const char[] name, bool dontBroadcast)
 {
-    int userid = GetEventInt(event, "userid");
-    if (inThirdPerson[GetClientOfUserId(userid)])
-        CreateTimer(0.2, SetViewOnSpawn, userid);
+	int userid = GetEventInt(event, "userid");
+	if (inThirdPerson[GetClientOfUserId(userid)])
+		CreateTimer(0.2, SetViewOnSpawn, userid);
 }
 
-public void SetViewOnSpawn(Handle timer, any userid)
+public Action SetViewOnSpawn(Handle timer, int userid)
 {
-    int client = GetClientOfUserId(userid);
-    if (client != 0)
-    {
-        SetVariantInt(1);
-        AcceptEntityInput(client, "SetForcedTauntCam");
-    }
+	int client = GetClientOfUserId(userid);
+	if (client != 0)
+	{
+		SetVariantInt(1);
+		AcceptEntityInput(client, "SetForcedTauntCam");
+	}
+
+	return Plugin_Stop;
 }
 
 public void OnEntityCreated(int entity, const char[] classname)
