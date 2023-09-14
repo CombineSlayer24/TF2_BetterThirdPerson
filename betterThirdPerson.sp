@@ -12,7 +12,7 @@ public Plugin myinfo =
 	name = "Better Thirdperson",
 	author = "Pyri",
 	description = "Thirdperson camera, but acomedates the sniper",
-	version = "1.0.1",
+	version = "1.0.2",
 	url = ""
 };
 
@@ -98,14 +98,14 @@ public Action Command_ThirdPerson(int client, int args)
 		SetVariantInt(1);
 		AcceptEntityInput(client, "SetForcedTauntCam");
 		inThirdPerson[client] = true;
-		CPrintToChat(client, "[SM] Thirdperson is {green}enabled{default}. Tpye the command again to disable thirdperson.");
+		CPrintToChat(client, "[SM] Thirdperson is {green}enabled{default}. Type the command again to disable thirdperson.");
 	}
 	else
 	{
 		SetVariantInt(0);
 		AcceptEntityInput(client, "SetForcedTauntCam");
 		inThirdPerson[client] = false;
-		CPrintToChat(client, "[SM] Thirdperson is {red}disabled{default}. Tpye the command again to enable thirdperson.");
+		CPrintToChat(client, "[SM] Thirdperson is {red}disabled{default}. Type the command again to enable thirdperson.");
 	}
 
 	return Plugin_Handled;
