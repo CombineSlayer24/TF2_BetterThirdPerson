@@ -1,7 +1,6 @@
 #include <sourcemod>
 #include <tf2_stocks>
 #include <sdkhooks>
-#include <multicolors>
 
 #pragma semicolon 1
 
@@ -12,7 +11,7 @@ public Plugin myinfo =
 	name = "Better Thirdperson",
 	author = "Pyri",
 	description = "Thirdperson camera, but acomedates the sniper",
-	version = "1.0.2",
+	version = "1.0.0",
 	url = ""
 };
 
@@ -20,27 +19,6 @@ public void OnPluginStart()
 {
 	RegConsoleCmd("sm_tp", Command_ThirdPerson,"Enable First/Third person?");
 	RegConsoleCmd("sm_thirdperson", Command_ThirdPerson,"Enable First/Third person?");
-	HookEvent("player_spawn", OnPlayerSpawned);
-	HookEvent("player_class", OnPlayerSpawned);
-}
-
-public void OnPlayerSpawned(Handle event, const char[] name, bool dontBroadcast)
-{
-	int userid = GetEventInt(event, "userid");
-	if (inThirdPerson[GetClientOfUserId(userid)])
-		CreateTimer(0.2, SetViewOnSpawn, userid);
-}
-
-public Action SetViewOnSpawn(Handle timer, int userid)
-{
-	int client = GetClientOfUserId(userid);
-	if (client != 0)
-	{
-		SetVariantInt(1);
-		AcceptEntityInput(client, "SetForcedTauntCam");
-	}
-
-	return Plugin_Stop;
 }
 
 public void OnEntityCreated(int entity, const char[] classname)
@@ -98,14 +76,14 @@ public Action Command_ThirdPerson(int client, int args)
 		SetVariantInt(1);
 		AcceptEntityInput(client, "SetForcedTauntCam");
 		inThirdPerson[client] = true;
-		CPrintToChat(client, "[SM] Thirdperson is {green}enabled{default}. Type the command again to disable thirdperson.");
+		PrintToChat(client, "[SM] Thirdperson is {green}enabled{default}. Tpye the command again to disable thirdperson.");
 	}
 	else
 	{
 		SetVariantInt(0);
 		AcceptEntityInput(client, "SetForcedTauntCam");
 		inThirdPerson[client] = false;
-		CPrintToChat(client, "[SM] Thirdperson is {red}disabled{default}. Type the command again to enable thirdperson.");
+		PrintToChat(client, "[SM] Thirdperson is {red}disabled{default}. Tpye the command again to enable thirdperson.");
 	}
 
 	return Plugin_Handled;
